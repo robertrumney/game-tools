@@ -4,7 +4,8 @@ using System.Collections.Generic;
 public class OptimizationVolume : MonoBehaviour 
 {
     // List of items in the volume
-    public GameObject[] items;
+    [System.Serializable]
+    private GameObject[] items;
 
     // Whether the volume is activated
     private bool activated = false;
@@ -30,8 +31,10 @@ public class OptimizationVolume : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
     {
         // If the player enters the volume and it's activated
-        if (other.CompareTag("Player") && activated)
+        if (other.CompareTag("Player"))
         {
+            if(!activated) return;
+        
             // Spawn items if enabled
             if (useSpawning)
             {
